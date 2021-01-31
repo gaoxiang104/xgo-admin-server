@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pub.xgo.adminserver.dao.AdminDao">
+    <resultMap id="BaseResultMap" type="pub.xgo.adminserver.model.po.AdminPo">
+        <id column="admin_id" jdbcType="INTEGER" property="adminId"/>
+        <result column="admin_login_name" jdbcType="VARCHAR" property="adminLoginName"/>
+        <result column="admin_passwrod" jdbcType="VARCHAR" property="adminPasswrod"/>
+        <result column="admin_name" jdbcType="VARCHAR" property="adminName"/>
+        <result column="admin_status" javaType="pub.xgo.adminserver.model.enums.AdminStatusEnums"
+                property="adminStatus"/>
+        <result column="admin_creation_time" jdbcType="TIMESTAMP" property="adminCreationTime"/>
+        <result column="admin_update_time" jdbcType="TIMESTAMP" property="adminUpdateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    admin_id, admin_login_name, admin_passwrod, admin_name, admin_status, admin_creation_time, 
+    admin_update_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from admin_admin
+        where admin_id = #{adminId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from admin_admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" keyColumn="admin_id" keyProperty="adminId" parameterType="pub.xgo.adminserver.model.po.AdminPo"
+            useGeneratedKeys="true">
+    insert into admin_admin (admin_login_name, admin_passwrod, admin_name, 
+      admin_status, admin_creation_time, admin_update_time
+      )
+    values (#{adminLoginName,jdbcType=VARCHAR}, #{adminPasswrod,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR}, 
+      #{adminStatus,jdbcType=BOOLEAN}, #{adminCreationTime,jdbcType=TIMESTAMP}, #{adminUpdateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" keyColumn="admin_id" keyProperty="adminId"
+            parameterType="pub.xgo.adminserver.model.po.AdminPo" useGeneratedKeys="true">
+        insert into admin_admin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="adminLoginName != null">
+                admin_login_name,
+            </if>
+            <if test="adminPasswrod != null">
+                admin_passwrod,
+            </if>
+            <if test="adminName != null">
+                admin_name,
+            </if>
+            <if test="adminStatus != null">
+                admin_status,
+            </if>
+            <if test="adminCreationTime != null">
+                admin_creation_time,
+            </if>
+            <if test="adminUpdateTime != null">
+                admin_update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="adminLoginName != null">
+                #{adminLoginName,jdbcType=VARCHAR},
+            </if>
+            <if test="adminPasswrod != null">
+                #{adminPasswrod,jdbcType=VARCHAR},
+            </if>
+            <if test="adminName != null">
+                #{adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="adminStatus != null">
+                #{adminStatus,jdbcType=BOOLEAN},
+            </if>
+            <if test="adminCreationTime != null">
+                #{adminCreationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="adminUpdateTime != null">
+                #{adminUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="pub.xgo.adminserver.model.po.AdminPo">
+        update admin_admin
+        <set>
+            <if test="adminLoginName != null">
+                admin_login_name = #{adminLoginName,jdbcType=VARCHAR},
+            </if>
+            <if test="adminPasswrod != null">
+                admin_passwrod = #{adminPasswrod,jdbcType=VARCHAR},
+            </if>
+            <if test="adminName != null">
+                admin_name = #{adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="adminStatus != null">
+                admin_status = #{adminStatus,jdbcType=BOOLEAN},
+            </if>
+            <if test="adminCreationTime != null">
+                admin_creation_time = #{adminCreationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="adminUpdateTime != null">
+                admin_update_time = #{adminUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where admin_id = #{adminId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="pub.xgo.adminserver.model.po.AdminPo">
+    update admin_admin
+    set admin_login_name = #{adminLoginName,jdbcType=VARCHAR},
+      admin_passwrod = #{adminPasswrod,jdbcType=VARCHAR},
+      admin_name = #{adminName,jdbcType=VARCHAR},
+      admin_status = #{adminStatus,jdbcType=BOOLEAN},
+      admin_creation_time = #{adminCreationTime,jdbcType=TIMESTAMP},
+      admin_update_time = #{adminUpdateTime,jdbcType=TIMESTAMP}
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+</mapper>

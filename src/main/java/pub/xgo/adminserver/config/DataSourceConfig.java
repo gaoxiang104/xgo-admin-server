@@ -7,12 +7,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
 /**
  * 数据源设置
  */
 @Configuration
-@MapperScan("pub.xgo.adminserver.dao")
+@MapperScan(basePackages = "pub.xgo.adminserver.dao", annotationClass = Repository.class)
 public class DataSourceConfig {
     @Bean
     @Primary
