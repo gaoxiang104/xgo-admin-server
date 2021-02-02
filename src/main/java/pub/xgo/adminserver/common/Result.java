@@ -1,6 +1,7 @@
 package pub.xgo.adminserver.common;
 
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 
@@ -25,24 +26,17 @@ public class Result implements Serializable {
     }
 
     public static Result success() {
-        Result result = new Result(ResultCode.SUCCESS, null);
-        return result;
+        return new Result(ResultCode.SUCCESS, null);
     }
 
     public static Result success(Object data) {
-        Result result = new Result(ResultCode.SUCCESS, data);
-        return result;
+        return new Result(ResultCode.SUCCESS, data);
     }
 
     public static Result failure(ResultCode resultCode) {
-        Result result = new Result(resultCode, null);
-        return result;
+        return new Result(resultCode, null);
     }
 
-    public static Result failure(ResultCode resultCode, Object data) {
-        Result result = new Result(resultCode, data);
-        return result;
-    }
 
     public static Result failure(Integer code, String message) {
         Result result = new Result();
@@ -51,10 +45,15 @@ public class Result implements Serializable {
         return result;
     }
 
-    public static Result failure(Integer code, String message, String... args) {
+    public static Result failure(ResultCode resultCode, String... args) {
         Result result = new Result();
-        result.setCode(code);
-        String msgFormat = String.format(message, args);
+        result.setCode(resultCode.getCode());
+        String msgFormat;
+        if (null != args) {
+            msgFormat = String.format(resultCode.getMessage(), args);
+        } else {
+            msgFormat = resultCode.getMessage();
+        }
         result.setMessage(msgFormat);
         return result;
     }

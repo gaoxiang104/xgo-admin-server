@@ -11,7 +11,12 @@ public enum ResultCode {
     /**
      * 参数错误：1001～1999
      */
-    PARAM_IS_BLANK(1001, "参数为空"),
+    // valid校验错误
+    PARAM_IS_ERROR(1001, "参数错误：%s"),
+    // request body 为空
+    PARAM_IS_NULL(1002, "参数体不能为空"),
+    // request parameter 缺少参数
+    PARAM_IS_MISS(1003, "缺少%s参数"),
     /**
      * 用户错误：2001～2999
      */
@@ -19,6 +24,7 @@ public enum ResultCode {
     /**
      * 业务错误：3001～3999
      */
+    ERROR_NOT_FIND(3001,"查无信息"),
     /**
      * 其他异常：4001～4999
      */
