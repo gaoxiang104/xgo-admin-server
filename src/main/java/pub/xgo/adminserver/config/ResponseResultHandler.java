@@ -29,10 +29,13 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
 //        log.info("ResponseResultHandler.supports() start");
 
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (null == sra) {
+            return false;
+        }
         HttpServletRequest request = sra.getRequest();
         // 判断请求 是否有包装标记
         ResponseResult responseResultAnn = (ResponseResult) request.getAttribute(RESPONSE_RESULT_ANN);
-        return responseResultAnn == null ? false : true;
+        return responseResultAnn != null;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
             return Result.success();
         }
         if (body instanceof Result) {
-            log.info("body instanceof Result");
+//            log.info("body instanceof Result");
             return body;
         }
         if (body instanceof String) {
