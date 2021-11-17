@@ -40,8 +40,9 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+//        设置返回类型
+        serverHttpResponse.getHeaders().setContentType(MediaType.APPLICATION_JSON);
 //        log.info("进入 返回体 重写格式 处理中 。。。 ");
-
         if (null == body) {
             return Result.success();
         }

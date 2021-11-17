@@ -21,6 +21,7 @@ public enum ResultCode {
      * 用户错误：2001～2999
      */
     USER_NOT_LOGGED_IN(2001, "用户未登录"),
+    USER_LOGGING_ERROR(2002, "登录失败"),
     /**
      * 业务错误：3001～3999
      */
